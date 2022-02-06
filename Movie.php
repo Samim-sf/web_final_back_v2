@@ -2,11 +2,11 @@
 
 class Movie
 {
-    private int $id;
-    private string $movieName;
-    private int $releaseYear;
-    private string $description;
-    private string $posterPath;
+    public int $id;
+    public string $movieName;
+    public int $releaseYear;
+    public string $description;
+    public string $posterPath;
 
     public function __construct()
     {
@@ -91,7 +91,6 @@ class Movie
     {
         $this->posterPath = $posterPath;
     }
-
 
 
 }

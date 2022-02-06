@@ -25,14 +25,13 @@ header("Content-type:application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
 //
-var_dump($data);
 ////echo implode($_REQUEST);
 ////echo($_REQUEST['movieName']);
 ////echo($_REQUEST['releaseYear']);
 ////echo($_REQUEST['desc']);
 ////echo($_REQUEST['poster']);
-if (isset($data)) {
-    var_dump($_SERVER);
+//    echo "heloo";
+//    var_dump( $_GET);
     $movieController = new MovieController();
-    $movieController->switcher($_SERVER['PATH_INFO'], $data);
-}
+    $movieController->switcher($_SERVER['PATH_INFO'], $data,$_GET);
+

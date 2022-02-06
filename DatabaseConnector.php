@@ -20,12 +20,9 @@ class DatabaseConnector
             self::$conn = new PDO('mysql:host=' . self::DB_HOST .';dbname=' . self::DB_NAME, self::DB_USER, self::DB_PASS);
             self::$conn->exec('SET NAMES utf8');
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "\nconnection established\n";
         }
         catch(PDOException $e){
-
             echo $e->getMessage();
-
         }
     }
 
@@ -36,7 +33,6 @@ class DatabaseConnector
                 self::$conn = new PDO('mysql:host=' . self::DB_HOST .';dbname=' . self::DB_NAME, self::DB_USER, self::DB_PASS);
                 self::$conn->exec('SET NAMES utf8');
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo "\nconnection established\n";
             }
             catch(PDOException $e){
 

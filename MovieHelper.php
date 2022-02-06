@@ -34,10 +34,29 @@ class MovieHelper
     {
         $sql = "SELECT * FROM $this->tableName";
         $query = $this->dbconnection->prepare($sql);
-        return DatabaseConnector::runQuery($query);
+        $allData = DatabaseConnector::runQuery($query);
+        $movieArray = array();
+        if ($query->rowCount() > 0) {
+            foreach ($allData as $data) {
+                $movie = new Movie();
+                $movie->setId($data->id);
+                $movie->setMovieName($data->movie_name);
+                $movie->setReleaseYear($data->release_year);
+                $movie->setDescription($data->description);
+                $movie->setPosterPath($data->poster_fileName);
+                array_push($movieArray, $movie);
+            }
+        }
+
+        if (count($movieArray) == 0) {
+            echo json_encode(array("message" => "nothing to show"));
+        } else {
+//            var_dump(json_encode($movieArray));
+            echo json_encode($movieArray);
+        }
     }
 
-    public function fetchByYearOrName( $search)
+    public function fetchByYearOrName($search)
     {
         $sql = "SELECT * FROM  $this->tableName WHERE  CAST(:releaseYear as CHAR) like $search or :movieName like $search";
         $query = $this->dbconnection->prepare($sql);
@@ -71,5 +90,13 @@ class MovieHelper
         $query = $this->dbconnection->prepare($sql);
         $query->bindParam(':id', $id, PDO::PARAM_STR);
         DatabaseConnector::exeQuery($query);
+    }
+
+    public function fetch($id)
+    {
+        $sql = "SELECT * FROM $this->tableName WHERE id=:id";
+        $query = $this->dbconnection->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_STR);
+        return DatabaseConnector::runQuery($query);
     }
 }

@@ -13,7 +13,7 @@ class MovieController
     {
         $this->movieHelper = new MovieHelper();
     }
-    public function switcher($uri,$request)
+    public function switcher($uri,$request,$get)
     {
         switch ($uri) {
             case Actions::CREATE:
@@ -23,10 +23,12 @@ class MovieController
                 $this->updateAction($request);
                 break;
             case Actions::READ:
-                $this->readByCondition($request);
+//                $this->readByCondition($request);
+                $this->read($get['id']);
                 break;
             case Actions::READ_ALL:
-                $this->readAll($request);
+                  $this->readAll($request);
+//               return $lastResult;
                 break;
             case Actions::DELETE:
                 $this->delete($request);
@@ -109,6 +111,11 @@ class MovieController
         return $this->movieHelper->fetchByYearOrName($condition); //
     }
     public function readAll(){
-        return $this->movieHelper->fetchAll();
+          $this->movieHelper->fetchAll();
+    }
+
+    public function read($request){
+        $res = $this->movieHelper->fetch($request);
+        echo json_encode($res);
     }
 }

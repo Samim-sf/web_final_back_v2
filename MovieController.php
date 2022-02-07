@@ -31,7 +31,10 @@ class MovieController
 //               return $lastResult;
                 break;
             case Actions::DELETE:
-                $this->delete($request);
+                $this->delete($get['id']);
+                break;
+                case Actions::SEARCH:
+                    $this->readByCondition($get['search']);
                 break;
             default:
                 break;
@@ -103,13 +106,11 @@ class MovieController
         $movie->setPosterPath($request['poster']);
         $this->movieHelper->update($movie);
     }
-    public function delete(){
-        $id = $_GET['id'];
+    public function delete($id){
         $this->movieHelper->delete($id);
     }
-    public function readByCondition(){
-        $condition = $_GET['name'];
-        return $this->movieHelper->fetchByYearOrName($condition); //
+    public function readByCondition($condition){
+         $this->movieHelper->fetchByYearOrName($condition); //
     }
     public function readAll(){
           $this->movieHelper->fetchAll();

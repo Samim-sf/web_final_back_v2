@@ -55,10 +55,6 @@ class DatabaseConnector
         $sql->execute();
     }
 
-//    public  function prepare($sql)
-//    {
-//        return self::$conn->prepare($sql);
-//    }
     /**
      * @return null
      */

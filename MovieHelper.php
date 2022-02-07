@@ -51,7 +51,6 @@ class MovieHelper
         if (count($movieArray) == 0) {
             echo json_encode(array("message" => "nothing to show"));
         } else {
-//            var_dump(json_encode($movieArray));
             echo json_encode($movieArray);
         }
     }
@@ -60,10 +59,6 @@ class MovieHelper
     {
         $sql = "SELECT * FROM  $this->tableName WHERE CAST(release_year as CHAR) like '$search' OR  movie_name like '$search'";
         $query = $this->dbconnection->prepare($sql);
-//        $moveNameFromTable = "$this->tableName.movie_name";
-//        $releaseYearFromTable = "$this->tableName.release_year";
-//        $query->bindParam(':movieName', $moveNameFromTable, PDO::PARAM_STR);
-//        $query->bindParam(':releaseYear', $releaseYearFromTable, PDO::PARAM_STR);
         $allData = DatabaseConnector::runQuery($query);
         $movieArray = array();
         if ($query->rowCount() > 0) {
@@ -81,16 +76,13 @@ class MovieHelper
         if (count($movieArray) == 0) {
             echo json_encode(array("message" => "nothing to show"));
         } else {
-//            var_dump(json_encode($movieArray));
             echo json_encode($movieArray);
         }
     }
 
     public function update(Movie $movie)
     {
-//        $sql = 'UPDATE $this->tableName SET movie_name=:movieName,release_year=:releaseYear,description=:description,poster_fileName=:poster_fileName  WHERE id=:id';
         $sql = "UPDATE movie SET movie_name=:movieName,release_year=:releaseYear,description=:description,poster_fileName=:poster_fileName  WHERE id =:id";
-//        $sql = "UPDATE movie SET movie_name=':movieName',release_year=1234,description=':description',poster_fileName=':poster_fileName'  WHERE id=23";
         $query = $this->dbconnection->prepare($sql);
         $movieId = intval($movie->getId());
         $movieName = $movie->getMovieName();

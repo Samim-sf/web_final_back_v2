@@ -20,7 +20,7 @@ class MovieController
                 $this->createAction($request);
                 break;
             case Actions::UPDATE:
-                $this->updateAction($request);
+                $this->updateAction($request,$get['id']);
                 break;
             case Actions::READ:
 //                $this->readByCondition($request);
@@ -94,8 +94,9 @@ class MovieController
 //            }
 //        }
 //    }
-    public function updateAction($request){
+    public function updateAction($request,$id){
         $movie = new Movie();
+        $movie->setId($id);
         $movie->setMovieName($request['movieName']);
         $movie->setReleaseYear($request['releaseYear']);
         $movie->setDescription($request['desc']);

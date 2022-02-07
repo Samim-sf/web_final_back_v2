@@ -69,18 +69,25 @@ class MovieHelper
 
     public function update(Movie $movie)
     {
-        $sql = 'UPDATE $this->tableName SET movieName=:movieName,releaseYear=:releaseYear,description=:description,poster_fileName=:poster_fileName  WHERE id=:id';
+//        $sql = 'UPDATE $this->tableName SET movie_name=:movieName,release_year=:releaseYear,description=:description,poster_fileName=:poster_fileName  WHERE id=:id';
+        $sql = "UPDATE movie SET movie_name=:movieName,release_year=:releaseYear,description=:description,poster_fileName=:poster_fileName  WHERE id  like :id";
+//        $sql = "UPDATE movie SET movie_name=':movieName',release_year=1234,description=':description',poster_fileName=':poster_fileName'  WHERE id=23";
         $query = $this->dbconnection->prepare($sql);
         $movieId = $movie->getId();
         $movieName = $movie->getMovieName();
-        $releaseYear = $movie->getReleaseYear();
+//        $movieName = "heloooo";
+        $releaseYear = intval($movie->getReleaseYear());
+//        $releaseYear = intval(7451);
         $description = $movie->getDescription();
+//        var_dump($description);
+//        $description = "test1234";
         $postersFileName = $movie->getPosterPath();
+//        $postersFileName = "https://cdn.pocket-lint.com/r/s/1200x630/assets/images/148310-tv-feature-what-order-should-you-watch-the-fast-and-furious-films-in-image1-rzgajwfo2x.jpg";
         $query->bindParam(':id', $movieId, PDO::PARAM_STR);
         $query->bindParam(':movieName', $movieName, PDO::PARAM_STR);
         $query->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
         $query->bindParam(':description', $description, PDO::PARAM_STR);
-        $query->bindParam('::poster_fileName', $postersFileName, PDO::PARAM_STR);
+        $query->bindParam(':poster_fileName', $postersFileName, PDO::PARAM_STR);
         DatabaseConnector::exeQuery($query);
     }
 

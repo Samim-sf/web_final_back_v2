@@ -65,6 +65,7 @@ class MovieController
         (http_response_code(201));
     }
 
+
     public function delete($id)
     {
         $this->movieHelper->delete($id);

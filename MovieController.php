@@ -3,7 +3,6 @@
 use CRUD\Model\Actions;
 
 include_once "Movie.php";
-
 include_once "./MovieHelper.php";
 include_once "./Actions.php";
 
